@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Another player has connected or disconnected
     socket.on('player-connection', num => {
-      console.log(`Player number ${num} has connected or disconnected`)
+      console.log(`Jugador número ${num} se conectó o desconectó`)
       playerConnectedOrDisconnected(num)
     })
 
@@ -121,13 +121,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // On Timeout
     socket.on('timeout', () => {
-      infoDisplay.innerHTML = 'You have reached the 10 minute limit'
+      infoDisplay.innerHTML = 'Llegaste al límite de tiempo de 10 min'
     })
 
     // Ready button click
     startButton.addEventListener('click', () => {
       if(allShipsPlaced) playGameMulti(socket)
-      else infoDisplay.innerHTML = "Please place all ships"
+      else infoDisplay.innerHTML = "Coloca todos los botes"
     })
 
     // Setup event listeners for firing
@@ -320,10 +320,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if(enemyReady) {
       if(currentPlayer === 'user') {
-        turnDisplay.innerHTML = 'Your Go'
+        turnDisplay.innerHTML = 'Tu turno'
       }
       if(currentPlayer === 'enemy') {
-        turnDisplay.innerHTML = "Enemy's Go"
+        turnDisplay.innerHTML = "Turno del enemigo"
       }
     }
   }
@@ -337,14 +337,14 @@ document.addEventListener('DOMContentLoaded', () => {
   function playGameSingle() {
     if (isGameOver) return
     if (currentPlayer === 'user') {
-      turnDisplay.innerHTML = 'Your Go'
+      turnDisplay.innerHTML = 'Tu turno'
       computerSquares.forEach(square => square.addEventListener('click', function(e) {
         shotFired = square.dataset.id
         revealSquare(square.classList)
       }))
     }
     if (currentPlayer === 'enemy') {
-      turnDisplay.innerHTML = 'Computers Go'
+      turnDisplay.innerHTML = 'Turno de la computadora'
       setTimeout(enemyGo, 1000)
     }
   }
@@ -395,46 +395,46 @@ document.addEventListener('DOMContentLoaded', () => {
       checkForWins()
     } else if (gameMode === 'singlePlayer') enemyGo()
     currentPlayer = 'user'
-    turnDisplay.innerHTML = 'Your Go'
+    turnDisplay.innerHTML = 'Tu turno'
   }
 
   function checkForWins() {
-    let enemy = 'computer'
-    if(gameMode === 'multiPlayer') enemy = 'enemy'
+    let enemy = 'Computador'
+    if(gameMode === 'multiPlayer') enemy = 'enemigo'
     if (destroyerCount === 2) {
-      infoDisplay.innerHTML = `You sunk the ${enemy}'s destroyer`
+      infoDisplay.innerHTML = `El ${enemy} perdió su destroyer`
       destroyerCount = 10
     }
     if (submarineCount === 3) {
-      infoDisplay.innerHTML = `You sunk the ${enemy}'s submarine`
+      infoDisplay.innerHTML = `El ${enemy} perdió su submarino`
       submarineCount = 10
     }
     if (cruiserCount === 3) {
-      infoDisplay.innerHTML = `You sunk the ${enemy}'s cruiser`
+      infoDisplay.innerHTML = `El ${enemy} perdió su cruiser`
       cruiserCount = 10
     }
     if (battleshipCount === 4) {
-      infoDisplay.innerHTML = `You sunk the ${enemy}'s battleship`
+      infoDisplay.innerHTML = `El ${enemy} perdió su battleship`
       battleshipCount = 10
     }
     if (carrierCount === 5) {
-      infoDisplay.innerHTML = `You sunk the ${enemy}'s carrier`
+      infoDisplay.innerHTML = `El ${enemy} perdió su carrier`
       carrierCount = 10
     }
     if (cpuDestroyerCount === 2) {
-      infoDisplay.innerHTML = `${enemy} sunk your destroyer`
+      infoDisplay.innerHTML = `El ${enemy} hundió tu destroyer`
       cpuDestroyerCount = 10
     }
     if (cpuSubmarineCount === 3) {
-      infoDisplay.innerHTML = `${enemy} sunk your submarine`
+      infoDisplay.innerHTML = `El ${enemy} hundió tu submarine`
       cpuSubmarineCount = 10
     }
     if (cpuCruiserCount === 3) {
-      infoDisplay.innerHTML = `${enemy} sunk your cruiser`
+      infoDisplay.innerHTML = `El ${enemy} hundió tu cruiser`
       cpuCruiserCount = 10
     }
     if (cpuBattleshipCount === 4) {
-      infoDisplay.innerHTML = `${enemy} sunk your battleship`
+      infoDisplay.innerHTML = `El ${enemy} hundió tu battleship`
       cpuBattleshipCount = 10
     }
     if (cpuCarrierCount === 5) {
@@ -443,11 +443,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if ((destroyerCount + submarineCount + cruiserCount + battleshipCount + carrierCount) === 50) {
-      infoDisplay.innerHTML = "YOU WIN"
+      infoDisplay.innerHTML = "Ganaste! "
       gameOver()
     }
     if ((cpuDestroyerCount + cpuSubmarineCount + cpuCruiserCount + cpuBattleshipCount + cpuCarrierCount) === 50) {
-      infoDisplay.innerHTML = `${enemy.toUpperCase()} WINS`
+      infoDisplay.innerHTML = `${enemy.toUpperCase()} Ganó`
       gameOver()
     }
   }
